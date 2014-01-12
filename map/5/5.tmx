@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="100" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="tileset" tilewidth="64" tileheight="64">
+  <image source="../../textures/64/tileset.png" width="1920" height="1920"/>
+  <terraintypes>
+   <terrain name="eau" tile="127"/>
+   <terrain name="herbe 1" tile="121"/>
+   <terrain name="herbe 2" tile="124"/>
+   <terrain name="terre" tile="61"/>
+  </terraintypes>
+  <tile id="61" terrain="3,3,3,3"/>
+  <tile id="90" terrain="3,3,3,1"/>
+  <tile id="91" terrain="3,3,1,1"/>
+  <tile id="92" terrain="3,3,1,3"/>
+  <tile id="93" terrain="1,1,1,2"/>
+  <tile id="94" terrain="1,1,2,2"/>
+  <tile id="95" terrain="1,1,2,1"/>
+  <tile id="96" terrain="1,1,1,0"/>
+  <tile id="97" terrain="1,1,0,0"/>
+  <tile id="98" terrain="1,1,0,1"/>
+  <tile id="120" terrain="3,1,3,1"/>
+  <tile id="121" terrain="1,1,1,1"/>
+  <tile id="122" terrain="1,3,1,3"/>
+  <tile id="123" terrain="1,2,1,2"/>
+  <tile id="124" terrain="2,2,2,2"/>
+  <tile id="125" terrain="2,1,2,1"/>
+  <tile id="126" terrain="1,0,1,0"/>
+  <tile id="127" terrain="0,0,0,0"/>
+  <tile id="128" terrain="0,1,0,1"/>
+  <tile id="150" terrain="3,1,3,3"/>
+  <tile id="151" terrain="1,1,3,3"/>
+  <tile id="152" terrain="1,3,3,3"/>
+  <tile id="153" terrain="1,2,1,1"/>
+  <tile id="154" terrain="2,2,1,1"/>
+  <tile id="155" terrain="2,1,1,1"/>
+  <tile id="156" terrain="1,0,1,1"/>
+  <tile id="157" terrain="0,0,1,1"/>
+  <tile id="158" terrain="0,1,1,1"/>
+  <tile id="180" terrain="0,0,0,1"/>
+  <tile id="181" terrain="0,0,1,0"/>
+  <tile id="182" terrain="1,1,1,3"/>
+  <tile id="183" terrain="1,1,3,1"/>
+  <tile id="184" terrain="2,2,2,1"/>
+  <tile id="185" terrain="2,2,1,2"/>
+  <tile id="210" terrain="0,1,0,0"/>
+  <tile id="211" terrain="1,0,0,0"/>
+  <tile id="212" terrain="1,3,1,1"/>
+  <tile id="213" terrain="3,1,1,1"/>
+  <tile id="214" terrain="2,1,2,2"/>
+  <tile id="215" terrain="1,2,2,2"/>
+ </tileset>
+ <layer name="Sol" width="50" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztm2luFDEQhS1IJI4RKVKOwQxcI+ycYliTU7AGThGWcwQCx8EWXaKoVJWr3Ha3I/nH05BhNPO+rsVLt09CCCdDQ0NDQ2adR31S9KUDjxadRn2NesvoW9TrDjxaOZ5H3Wa0GxyrcPyMuj95P466N+nyGnFcRD0Nf2NyPHl/HPVk0o8OPOYEverzxLGbGHr1LvXW5B961bvQXz1Q39gvVfIPNdGqHsCPZSzC3jnf2C8VromaOYXz9lnUWeDHWM0755vWMFZL/5LOgs0753uJGj5lPN+YhN/zeF+y91jjAAzJOx6zeuj554z/mxkG7B/n2ppzUy6XJOExF3Iuve5Nr2v2fsxB64CLxU75TC8cuVjAHJT7/7XnExYOXBeX4ar/HuZzMN/01EVP/jUWbk5B86mn+RwWzi+6PuNi0VMcJI60PqPzol5zieoi8PO3pedGQ0NDQ0ND11l4r0i7t9HTfQ3OJ6yR0zxSWxPQvaS1+Lh1PZ0Pe9bMlG8pHskjrI0ph7Zmlnhas+BYSP5K47HUGieXTx4O7hrsL8QB3vAe14Ooh1GPnBxrxYOLRWL4HfUy6lWGYz9c9arVTSsO6gszWDhKelftWqexoAxJv8K/3EocdP+C2/NeOrfwtaUMB+FqTOBa0pj0wsHFQYtJKQceh2ox4Jx6oTBQFi63OEn7+7U58DXFHAcKS8ovKbe4WpHiVLPWcxwcjzcmrWuE9ilLXnEx8bCkcQbHpwYHzQmJ4zD4exfVIfp3S45cr5I4uN7l6b+1Oaw1nvQ96qPCsXR9SByc7w9ImGEux9yeZalx8E99Y8F9Bm4vXKp9mndzYpKrDZo72Ld1n17qY604uNrAdYz9e+8vWHrynNzSaoPGYu49KokF7vHNeXZU4vAyHBnfx7+3N73i+92lMcHf+z7ovajkOmm/BwKON6E8JtY+6fluKTY5jtKYaPsiNXuJh6MkJlyueuKhXXfps5QDPyNV+myyNadq3kunv8k9Z92KA3+nJwaccO/lYlFSIy1q/Jbjd2ksNqGsRnL70DmOo2AfNywcpbnVIh454R55nTngN6XaKOWwrNk8PVerD2ssWsXD2jskNvrMrRSLTWjLUZpb3DPDuXyqwYFzjO7/15jzWBlaxgNYLPdd5zLU5MCx2TNy0fvSHMMdxjP3Xqt4cPeZcsLncKxxWCKvJHF76Voe3SV/b8nf8MxnbQ46xkhjDj1r4Y0BjoVnjj13j7yG9034f9zw5pQUE8+erLcHtagNiaNm/dLrbJG3NrwctXK/dm1YOeb0zqVikUTXmdwZRq1n5rQ1+sdnsEr3AuCcO/Zs+X3ps9z4nItBjefqufPhHg6rKB9mqLEfQ8+He7zM4ah99hlqxMqydk0vzSKNH7XziQp6MJxxmcuzXYEhic63tL0Ark60nlyrt5awYI6t4jFXBy3Pn1tYPLWy9Pn5EhbOn+a3tzNXlnNhPfntXX8AxrlLXQ==
+  </data>
+ </layer>
+ <layer name="Block" width="50" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2LERwjAMBVB7F9oEmIGjSoD9t0EbcJdwFyt6xVP9XViW3FtrHYCypihzuIZbuPfjM22xRFnDK7zDJ+k5ADiHxwAZAMjDXgYAAACcgb9xALbwfgAAwD6VZ+rnABn4r8sAGQAq0n/JpPL8+0uGu5whI1CXHgXAqL7Fghqe
+  </data>
+ </layer>
+ <layer name="deco" width="50" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2TsSAiEQBUBINPSzZ7C8hve/jbrmO2dYsRyggyZ+LwCmoJZSKs09wyu8wxo+CTLtcYrlHC7hGpb6/0x66JHFKD3I6ZEgQ0bHBBlauCXIoIceWY3SAyA77xYAAADACPwdAbCH+wMAAL5jpu7fPUEG2jokyAAwI+fvHMy/4+thL/eQEZiXMwoAfmsD0Dcg2w==
+  </data>
+ </layer>
+ <objectgroup name="obj et pnj" width="50" height="100" visible="0"/>
+</map>

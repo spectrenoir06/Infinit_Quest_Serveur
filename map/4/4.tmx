@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="50" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="tileset" tilewidth="64" tileheight="64">
+  <image source="../../textures/64/tileset.png" width="640" height="1280"/>
+ </tileset>
+ <layer name="Calque de Tile 1" width="10" height="50">
+  <data encoding="base64" compression="zlib">
+   eJxjZmBgYCYDs0DxqLpRddjU8aFhVihGFydW3ah/R/076t9R/46qw48BjYwJwQ==
+  </data>
+ </layer>
+ <layer name="Calque 2" width="10" height="50">
+  <data encoding="base64" compression="zlib">
+   eJwzYWBgMEHCzlBsggUzEsCj6kbVjaobVTeqblTdqDrqq0PGTlCMLg4AEOkZSw==
+  </data>
+ </layer>
+ <layer name="deco" width="10" height="50">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYBzFo3gUj+JRPIpH8ZDGAK1BAfU=
+  </data>
+ </layer>
+ <objectgroup name="Calque d'objets 1" width="10" height="50">
+  <object x="768" y="1216"/>
+  <object name="porte" type="obj" x="320" y="0" width="64" height="64">
+   <properties>
+    <property name="id" value="8"/>
+   </properties>
+  </object>
+  <object name="porte" type="obj" x="256" y="3136" width="64" height="64">
+   <properties>
+    <property name="id" value="9"/>
+   </properties>
+  </object>
+  <object name="porte" type="obj" x="320" y="3136" width="64" height="64">
+   <properties>
+    <property name="id" value="9"/>
+   </properties>
+  </object>
+  <object name="porte" type="obj" x="256" y="0" width="64" height="64">
+   <properties>
+    <property name="id" value="8"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

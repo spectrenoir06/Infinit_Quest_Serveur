@@ -1,0 +1,446 @@
+{
+	"map": [{
+		"Y": 0,
+		"fichier": "/map/1/1.json",
+		"X": 100,
+		"texture": "tileset.png"
+	},
+	{
+		"Y": 800,
+		"fichier": "/map/2/2.json",
+		"X": 800,
+		"texture": "tileset.png"
+	},
+	{
+		"Y": 0,
+		"fichier": "/map/3/3.json",
+		"X": 0,
+		"texture": "tileset.png"
+	},
+	{
+		"Y": 500,
+		"fichier": "/map/4/4.json",
+		"X": 500,
+		"texture": "tileset.png"
+	}],
+	"pnj": [{
+		"talk_str": "",
+		"name": "Eskimos",
+		"skin": "skin1.png"
+	},
+	{
+		"talk_str": "info=true , print('test')",
+		"name": "Pirate",
+		"skin": "skin2.png"
+	},
+	{
+		"talk_str": "info=false print('Fuck le zboob debug mode')",
+		"name": "Marchande",
+		"skin": "skin3.png"
+	},
+	{
+		"talk_str": "cam:rotate(math.pi/512)",
+		"name": "Pere",
+		"skin": "skin4.png"
+	},
+	{
+		"talk_str": "cam:zoom(1.0001)",
+		"name": "pnj 1",
+		"skin": "skin5.png"
+	},
+	{
+		"talk_str": "",
+		"name": "pnj 2",
+		"skin": "skin6.png"
+	},
+	{
+		"talk_str": "",
+		"name": "pnj 3",
+		"skin": "skin7.png"
+	},
+	{
+		"talk_str": "mobile=true print('mobil on')",
+		"name": "pnj 3",
+		"skin": "skin7.png"
+	},
+	{
+		"talk_str": "mobile=false print('mobil off')",
+		"name": "pnj 3",
+		"skin": "skin7.png"
+	}],
+	"obj": [{
+		"name": "pont 1",
+		"isOn_str": ""
+	},
+	{
+		"name": "pont 2",
+		"isOn_str": ""
+	},
+	{
+		"name": "porte 1",
+		"isOn_str": "print('obj: id=3')"
+	},
+	{
+		"name": "porte 2",
+		"isOn_str": "print('obj: id=4') steve:setPos(23,15,1,2,true)"
+	},
+	{
+		"name": "porte",
+		"isOn_str": "print('obj: id=5') steve:setPos(88,15,3,2,true)"
+	},
+	{
+		"name": "porte",
+		"isOn_str": "print('obj: id=6') steve:setPos(70,14,3,2,true)"
+	},
+	{
+		"name": "porte",
+		"isOn_str": "print('obj: id=3')"
+	},
+	{
+		"name": "porte sortit tunnel",
+		"isOn_str": "print('obj: id=3')"
+	},
+	{
+		"name": "porte",
+		"isOn_str": "print('obj: id=3')"
+	},
+	{
+		"name": "porte",
+		"isOn_str": "print('obj: id=3')"
+	}],
+	"tile": {
+		"63": {
+			"pass": true,
+			"type": "sol"
+		},
+		"93": {
+			"pass": true,
+			"type": "sol"
+		},
+		"37": {
+			"pass": false,
+			"type": "sol"
+		},
+		"67": {
+			"pass": false,
+			"type": "sol"
+		},
+		"212": {
+			"pass": true,
+			"type": "sol"
+		},
+		"154": {
+			"pass": true,
+			"type": "sol"
+		},
+		"215": {
+			"pass": true,
+			"type": "sol"
+		},
+		"270": {
+			"pass": false,
+			"type": "block"
+		},
+		"155": {
+			"pass": true,
+			"type": "sol"
+		},
+		"214": {
+			"pass": true,
+			"type": "sol"
+		},
+		"33": {
+			"pass": true,
+			"type": "sol"
+		},
+		"303": {
+			"pass": false,
+			"type": "block"
+		},
+		"96": {
+			"pass": false,
+			"type": "sol"
+		},
+		"36": {
+			"pass": true,
+			"type": "deco"
+		},
+		"92": {
+			"pass": true,
+			"type": "sol"
+		},
+		"66": {
+			"pass": false,
+			"type": "block"
+		},
+		"183": {
+			"pass": true,
+			"type": "sol"
+		},
+		"243": {
+			"pass": true,
+			"type": "deco"
+		},
+		"122": {
+			"pass": true,
+			"type": "sol"
+		},
+		"125": {
+			"pass": true,
+			"type": "sol"
+		},
+		"180": {
+			"pass": false,
+			"type": "sol"
+		},
+		"121": {
+			"pass": true,
+			"type": "sol"
+		},
+		"240": {
+			"pass": true,
+			"type": "deco"
+		},
+		"124": {
+			"pass": true,
+			"type": "sol"
+		},
+		"300": {
+			"pass": false,
+			"type": "block"
+		},
+		"32": {
+			"pass": true,
+			"type": "sol"
+		},
+		"95": {
+			"pass": true,
+			"type": "sol"
+		},
+		"156": {
+			"pass": false,
+			"type": "sol"
+		},
+		"65": {
+			"pass": true,
+			"type": "sol"
+		},
+		"272": {
+			"pass": false,
+			"type": "block"
+		},
+		"35": {
+			"pass": false,
+			"type": "block"
+		},
+		"153": {
+			"pass": true,
+			"type": "sol"
+		},
+		"331": {
+			"pass": false,
+			"type": "block"
+		},
+		"0": {
+			"pass": true,
+			"type": "block"
+		},
+		"1": {
+			"type": "sol",
+			"name": "herbe",
+			"pass": true
+		},
+		"150": {
+			"pass": true,
+			"type": "sol"
+		},
+		"3": {
+			"pass": true,
+			"type": "sol"
+		},
+		"2": {
+			"pass": true,
+			"type": "sol"
+		},
+		"5": {
+			"pass": true,
+			"type": "deco"
+		},
+		"4": {
+			"pass": true,
+			"type": "sol"
+		},
+		"7": {
+			"pass": false,
+			"type": "sol"
+		},
+		"274": {
+			"pass": false,
+			"type": "block"
+		},
+		"211": {
+			"pass": false,
+			"type": "sol"
+		},
+		"158": {
+			"pass": false,
+			"type": "sol"
+		},
+		"332": {
+			"pass": true,
+			"type": "block"
+		},
+		"152": {
+			"pass": true,
+			"type": "sol"
+		},
+		"31": {
+			"pass": true,
+			"type": "sol"
+		},
+		"271": {
+			"pass": false,
+			"type": "block"
+		},
+		"181": {
+			"pass": false,
+			"type": "sol"
+		},
+		"330": {
+			"pass": false,
+			"type": "block"
+		},
+		"94": {
+			"pass": true,
+			"type": "sol"
+		},
+		"182": {
+			"pass": true,
+			"type": "sol"
+		},
+		"127": {
+			"pass": false,
+			"type": "sol"
+		},
+		"334": {
+			"pass": false,
+			"type": "block"
+		},
+		"123": {
+			"pass": true,
+			"type": "sol"
+		},
+		"64": {
+			"pass": true,
+			"type": "sol"
+		},
+		"34": {
+			"pass": true,
+			"type": "sol"
+		},
+		"90": {
+			"pass": true,
+			"type": "sol"
+		},
+		"61": {
+			"pass": true,
+			"type": "sol"
+		},
+		"302": {
+			"pass": false,
+			"type": "block"
+		},
+		"151": {
+			"pass": true,
+			"type": "sol"
+		},
+		"126": {
+			"pass": false,
+			"type": "sol"
+		},
+		"157": {
+			"pass": false,
+			"type": "sol"
+		},
+		"98": {
+			"pass": false,
+			"type": "sol"
+		},
+		"68": {
+			"pass": false,
+			"type": "block"
+		},
+		"333": {
+			"pass": false,
+			"type": "block"
+		},
+		"213": {
+			"pass": true,
+			"type": "sol"
+		},
+		"184": {
+			"pass": true,
+			"type": "sol"
+		},
+		"301": {
+			"pass": false,
+			"type": "block"
+		},
+		"244": {
+			"pass": true,
+			"type": "deco"
+		},
+		"242": {
+			"pass": true,
+			"type": "deco"
+		},
+		"273": {
+			"pass": false,
+			"type": "block"
+		},
+		"91": {
+			"pass": true,
+			"type": "sol"
+		},
+		"6": {
+			"pass": true,
+			"type": "deco"
+		},
+		"185": {
+			"pass": true,
+			"type": "sol"
+		},
+		"304": {
+			"pass": false,
+			"type": "block"
+		},
+		"128": {
+			"pass": false,
+			"type": "sol"
+		},
+		"210": {
+			"pass": false,
+			"type": "sol"
+		},
+		"62": {
+			"pass": true,
+			"type": "sol"
+		},
+		"97": {
+			"pass": false,
+			"type": "sol"
+		},
+		"241": {
+			"pass": true,
+			"type": "deco"
+		},
+		"120": {
+			"pass": true,
+			"type": "sol"
+		}
+		"186": {
+			"pass": true,
+			"type": "block"
+		}
+	}
+}
