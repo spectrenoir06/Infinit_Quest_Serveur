@@ -437,7 +437,7 @@
 		"120": {
 			"pass": true,
 			"type": "sol"
-		},
+		}
 		"186": {
 			"pass": true,
 			"type": "block"

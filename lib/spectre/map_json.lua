@@ -5,7 +5,7 @@ function loadmaps()
     end
 end
 
-require "/lib/spectre/sprite"
+
 
 local map = {}
 map.__index = map
@@ -29,7 +29,6 @@ end
 function map_new(fichier,texture,music) --créer une map
     local a={}
     a["fichier"] = fichier
-	print(fichier)
     a["json"] = json.decode(love.filesystem.read( fichier, nil ))
     a["map_sol"]=map_read(a.json,1)
     a["map_block"]=map_read(a.json,2)
@@ -58,7 +57,7 @@ function map_new(fichier,texture,music) --créer une map
     for x=0,(a.LX)-1 do
         for y=0,(a.LY)-1 do
             local id = a.map_sol[x+1][y+1]
-            a.spriteBatch_sol:add(a.tile[id], x*a.tileLX, y*a.tileLY)
+            a.spriteBatch_sol:addq(a.tile[id], x*a.tileLX, y*a.tileLY)
         end
     end
     for x=0,(a.LX)-1 do
@@ -67,7 +66,7 @@ function map_new(fichier,texture,music) --créer une map
             if id<0 then
                 error("ID inferieur a 0 : "..fichier.." ; x="..(x).." ; y="..(y).." ; id = "..id)
             end
-            a.spriteBatch_block:add(a.tile[id], x*a.tileLX, y*a.tileLY)
+            a.spriteBatch_block:addq(a.tile[id], x*a.tileLX, y*a.tileLY)
         end
     end
 	for x=0,(a.LX)-1 do
@@ -76,7 +75,7 @@ function map_new(fichier,texture,music) --créer une map
             if id<0 then
                 error("ID inferieur a 0 : "..fichier.." ; x="..(x).." ; y="..(y).." ; id = "..id)
             end
-            a.spriteBatch_deco:add(a.tile[id], x*a.tileLX, y*a.tileLY)
+            a.spriteBatch_deco:addq(a.tile[id], x*a.tileLX, y*a.tileLY)
         end
     end
 	

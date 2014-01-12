@@ -1,5 +1,3 @@
-
-
 local sprite = {}
 sprite.__index = sprite
 
@@ -32,11 +30,11 @@ function sprite_new(fichier,LX,LY)
 end
 
 function sprite:draw(x,y)
-    love.graphics.draw(self.img,self.frame[self.anim[self.animation][self.position]],x,y)
+    love.graphics.drawq(self.img,self.frame[self.anim[self.animation][self.position]],x,y)
 end
 
 function sprite:drawframe(x,y,frame)
-    love.graphics.draw(self.img,self.frame[frame],x,y)
+    love.graphics.drawq(self.img,self.frame[frame],x,y)
 end
 
 function sprite:addAnimation(Tframe)

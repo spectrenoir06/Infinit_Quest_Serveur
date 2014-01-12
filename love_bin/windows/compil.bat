@@ -1,1 +1,0 @@
-copy /b love.exe+jeu.love game.exe

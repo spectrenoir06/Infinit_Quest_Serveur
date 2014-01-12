@@ -1,36 +1,30 @@
-require "/lib/spectre/sprite"
-
 perso = {}
 perso.__index = perso
 
-function perso_new(fichier,x,y,map)
+function perso_new(fichier,LX,LY,map)
 
 
     local a={}
-	if map then
-		a.globalPosX= (data.map[map].X + x) *64
-		a.globalPosY= (data.map[map].Y + x) *64
-	else
-		a.globalPosX= 110 * resolution
-		a.globalPosY= 10 * resolution
-    end
-	a.LX = 64
-    a.LY = 64
+	
+	a.globalPosX= 110 * resolution
+	a.globalPosY= 10 * resolution
+    a.LX = LX
+    a.LY = LY
 	
 	for k,v in ipairs(data.map) do
 		if (v.X<(a.globalPosX/resolution)) and (v.Y<(a.globalPosX/resolution)) then -- 
 			if ((a.globalPosX-v.X*resolution) < v.map.LX*resolution) and ((a.globalPosY-v.Y*resolution) < v.map.LY*resolution) then
 				a.map = data.map[k]
+				a.mapnb = k
 				a.posX = a.globalPosX - v.X * resolution
 				a.posY = a.globalPosY - v.Y * resolution
-				a.mapnb = k
 				break
 			end
 		end
 	end
 	
     a.texture = fichier
-    a.sprite = sprite_new(fichier,a.LX,a.LY)
+    a.sprite = sprite_new(fichier,LX,LY)
     a.vie = 100
 	
 	a.sprite:addAnimation({9,10,11})
@@ -42,8 +36,6 @@ function perso_new(fichier,x,y,map)
     a.direction = 1
     a.dx = 0
     a.dy =0
-	--print("posX",a.posX)
-	--print("posY",a.posY)
 	a.X1 = a.posX - a.LX/2
 	a.Y1 = a.posY - a.LY/2
 	a.X2 = a.posX + a.LX/2
@@ -172,8 +164,8 @@ function perso:update(dt)
 					self.map = data.map[k]
 					self:setPosX(self.globalPosX - v.X * resolution)
 					self:setPosY(self.globalPosY - v.Y * resolution)
-					self.mapnb = k
-					--udp:send(json.encode( { cmd = "map_update" ,id = id , x1=self.X1 , y1=self.Y1 ,dir=self.direction , map = k } ))
+					
+					
 					break
 				end
 			end
@@ -185,7 +177,7 @@ end
 
 -------------------------------------------------------------------------------------------------------------------------------
 function perso:draw()
-    self.sprite:draw(math.floor(self:getX()-32),math.floor(self:getY()-32)) 
+    self.sprite:draw(math.floor(self.X1),math.floor(self.Y1)) 
 end
 
 function perso:setPos(tilex,tiley,dir,map)
@@ -217,7 +209,7 @@ end
 
 function perso:setPosX(x)
 	self.posX = x
-	self.X1 = self.posX - self.LX/2
+	self.X1 = self.posX -self.LX/2
 	self:updatePos()
 end
 
@@ -239,8 +231,8 @@ end
 
 function perso:updatePos()
 	self.X2 = self.X1 + self.LY
-	self.Y2 = self.Y1 + self.LY
 	self.posX = self.X1 + (self.LX/2)
+	self.Y2 = self.Y1 + self.LY
 	self.posY = self.Y1 + (self.LY/2)
 	self.globalPosX = self.map.X*resolution + self.posX
 	self.globalPosY = self.map.Y*resolution + self.posY
@@ -517,4 +509,9 @@ function perso:GoRight()
 	self:setdirection(4)
     self.dy = 0
     self.dx = 1
+end
+
+function perso:info()
+	self.posX , self.posY , self.X1 ,  self.Y1 , self.X2 , self.Y2 = self:getPos()
+	return self.posX , self.posY
 end

@@ -145,7 +145,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"",
+         "image":"..\/..\/textures\/64\/tileset.png",
          "imageheight":1920,
          "imagewidth":1920,
          "margin":0,
