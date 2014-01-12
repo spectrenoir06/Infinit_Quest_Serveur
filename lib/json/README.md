@@ -1,0 +1,29 @@
+-----------------------------------------------------------------------------
+-- JSON4Lua: JSON encoding / decoding support for the Lua language.
+-- json Module.
+-- Author: Craig Mason-Jones
+-- Homepage: http://json.luaforge.net/
+-- Version: 0.9.50
+-- This module is released under the MIT License (MIT).
+-- Please see LICENCE.txt for details.
+--
+-- USAGE:
+-- This module exposes two functions:
+--   encode(o)
+--     Returns the table / string / boolean / number / nil / json.null value as a JSON-encoded string.
+--   decode(json_string)
+--     Returns a Lua object populated with the data encoded in the JSON string json_string.
+--
+-- REQUIREMENTS:
+--   compat-5.1 if using Lua 5.0
+--
+-- CHANGELOG
+--	 0.9.50 Radical performance improvement on decode from Eike Decker. Many thanks!
+--	 0.9.40 Changed licence to MIT License (MIT)
+--   0.9.20 Introduction of local Lua functions for private functions (removed _ function prefix). 
+--          Fixed Lua 5.1 compatibility issues.
+--   		Introduced json.null to have null values in associative arrays.
+--          encode() performance improvement (more than 50%) through table.concat rather than ..
+--          Introduced decode ability to ignore /**/ comments in the JSON string.
+--   0.9.10 Fix to array encoding / decoding to correctly manage nil/null values in arrays.
+-----------------------------------------------------------------------------

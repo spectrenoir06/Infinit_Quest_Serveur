@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="64" tileheight="64">
+ <properties>
+  <property name="musique" value=""/>
+ </properties>
+ <tileset firstgid="1" source="../3/tileset.tsx"/>
+ <layer name="Sol" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzNmGtuE0EQhEeOcg8rSDkGcZBvwSuEUxDAdk4BhNcpAoRrQIDjsKO45HLRPY/dWewfJa+89mx/Uz3ds7MKIaz2SPM9H2+M57aI8brTpwb64sQHtY5f4/7c6aKBPmaYWgnx94n7a6e3nb7JdY5pCI/l1XXP+KGXne53eiHXpR55PKm80ntDGUo5DkgWzxBvUgzIjxK9W8f+Rq5xP5VjLVgujfEOaY4fdno0UI/XTMpyaDxb86ykjuXyKXKU5HhOt8SS8pQ54Q3XZI/J8iLF8aTT0wqdGSwn4S7nZuvPqNOwyUOPxYq/xAuL41Wn1xX6LTxY/ynBM/AsEwwlXihH9OIPxXivkudMOE7Ddvzszwl5Y3HU9mjmqPVCtSj0gxWfbdWw0hrKtbSU46bTe9J38S5yYI3UcFj1uGYudKwcR4yT9yP6e+QWs3BuPUg8W9fJkLp/JfOt+hC2+7jFba0TS7Nw17d+ORxj1X3t6cpxtBZ8u03MG/ouMzzr9JM4zknPK1hqPbT8AAdqsfaXVN9N1d4fwuLt32qFWErq2yLDgXj69BDmqenfmFuPQ+sZ1lQLDvWEpX2vdG6VA/HHmGOenwc/v/tyeJ5wnUVeT8NmvU7pM8exoPh5rUYdy1wqB/bDHgfvuzxPvPyeOt9bHDdrHxDHsTDoXPZZ5ytjHI8DsR8Z36U44IX6oMJcjsER+x7vLTTHdA1jzSpHzgtcX9J/J+uxJoXzoPNRmlvqCddP5dC9ETNAeIfAfw+IpdQLyPNE93zcm60+oBwXBgszgWEStv2o9QJK1WCrNzNLjkNZ4AkzWBy1XkC5Gjx1WDwO7AstFjDwHlnzKscxd773OKw1b+1jrf6h77ZLelZk0POiGj88jlRuYa3oevHqrrLjPnPwuwjvc/uuDVbJezsz6V6Je8CVcZ85JmGzn0b8KS+8+S/lqNkH5868lIOF5wzxAqxWbo3FgfXMGppPrCHvJn396OtDLtcslhJvajiwn/X2wy04lOUg+Of+fC4fa2fqnJ05hsRfw6EsKQ/iGSCfzcd6Ogv/erOkcVutg1K++MzU2QTXTu+7PnNfOte1Ak/NeUuL3BlTzJTSvsY/plJ55N1L/afF71tz7DKuXT5zF3z7FN8Y48+d6//J1ZpjjLFbjW+Ns4/zO1ZMfwE1FqSa
+  </data>
+ </layer>
+ <layer name="Block" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2E0OgjAQhuH2BIJewS2CZzCu8Of+t3EmmUUXoCmNDNV38XTKhmTSZvJBDCFE/LydLI1ok7o3h5j3rqtjH50sJ9FbHWyv9ZzZh2dPoyw3cbf6sL3WZ0EfNfO8V+BslrrMVADfc/zwvLY0Yy3JVVuRZqzSXOV5JmnGyslV3vcIAN4hjwOAH83JmpFL8vEWaE7WjPyv/x0BrGtqdtY4T6dmJ/O0HnxHAQCAFwwEGDQ=
+  </data>
+ </layer>
+ <layer name="Deco" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2M8KgCAMwOF5qSeJ3v/R+uM9O3gJRhahbf4OH0MP4hjIZhCRANWS7Ir48Kz5B/l8zWNO1lCDMqMSrdVmUqI1XvIALBlu1rWdPdaabPKur/KodU16uTOAfjArAUA7+U+VPh8AyuW/knjZ4z1FTcxRAADAiwPm1iB6
+  </data>
+ </layer>
+ <objectgroup color="#aa0000" name="Calque d'objets 1" width="50" height="50">
+  <object name="Zboob pnj" type="pnj" x="1280" y="960" width="64" height="64">
+   <properties>
+    <property name="id" value="1"/>
+   </properties>
+  </object>
+  <object name="Zboob pnj" type="pnj" x="640" y="768" width="64" height="64">
+   <properties>
+    <property name="id" value="3"/>
+   </properties>
+  </object>
+  <object name="Zboob pnj" type="pnj" x="512" y="768" width="64" height="64">
+   <properties>
+    <property name="id" value="4"/>
+   </properties>
+  </object>
+  <object name="Zboob pnj" type="pnj" x="1152" y="960" width="64" height="64">
+   <properties>
+    <property name="id" value="2"/>
+   </properties>
+  </object>
+  <object name="porte 1" type="obj" x="1600" y="1024" width="64" height="64">
+   <properties>
+    <property name="id" value="3"/>
+   </properties>
+  </object>
+  <object name="mobil-off" type="pnj" x="1536" y="1856" width="64" height="64">
+   <properties>
+    <property name="id" value="9"/>
+   </properties>
+  </object>
+  <object name="mobil-on" type="pnj" x="1728" y="1856" width="64" height="64">
+   <properties>
+    <property name="id" value="8"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

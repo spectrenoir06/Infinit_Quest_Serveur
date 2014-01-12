@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="tileset64" tilewidth="64" tileheight="64">
+  <image source="../../textures/64/tileset.png" trans="ff00ff" width="1920" height="1920"/>
+  <terraintypes>
+   <terrain name="herbe 1" tile="121"/>
+   <terrain name="herbe 2" tile="124"/>
+   <terrain name="eau" tile="127"/>
+   <terrain name="sable" tile="61"/>
+  </terraintypes>
+  <tile id="61" terrain="3,3,3,3"/>
+  <tile id="90" terrain="3,3,3,0"/>
+  <tile id="91" terrain="3,3,0,0"/>
+  <tile id="92" terrain="3,3,0,3"/>
+  <tile id="93" terrain="0,0,0,1"/>
+  <tile id="94" terrain="0,0,1,1"/>
+  <tile id="95" terrain="0,0,1,0"/>
+  <tile id="96" terrain="0,0,0,2"/>
+  <tile id="97" terrain="0,0,2,2"/>
+  <tile id="98" terrain="0,0,2,0"/>
+  <tile id="120" terrain="3,0,3,0"/>
+  <tile id="121" terrain="0,0,0,0"/>
+  <tile id="122" terrain="0,3,0,3"/>
+  <tile id="123" terrain="0,1,0,1"/>
+  <tile id="124" terrain="1,1,1,1"/>
+  <tile id="125" terrain="1,0,1,0"/>
+  <tile id="126" terrain="0,2,0,2"/>
+  <tile id="127" terrain="2,2,2,2"/>
+  <tile id="128" terrain="2,0,2,0"/>
+  <tile id="150" terrain="3,0,3,3"/>
+  <tile id="151" terrain="0,0,3,3"/>
+  <tile id="152" terrain="0,3,3,3"/>
+  <tile id="153" terrain="0,1,0,0"/>
+  <tile id="154" terrain="1,1,0,0"/>
+  <tile id="155" terrain="1,0,0,0"/>
+  <tile id="156" terrain="0,2,0,0"/>
+  <tile id="157" terrain="2,2,0,0"/>
+  <tile id="158" terrain="2,0,0,0"/>
+  <tile id="180" terrain="2,2,2,0"/>
+  <tile id="181" terrain="2,2,0,2"/>
+  <tile id="182" terrain="0,0,0,3"/>
+  <tile id="183" terrain="0,0,3,0"/>
+  <tile id="184" terrain="1,1,1,0"/>
+  <tile id="185" terrain="1,1,0,1"/>
+  <tile id="210" terrain="2,0,2,2"/>
+  <tile id="211" terrain="0,2,2,2"/>
+  <tile id="212" terrain="0,3,0,0"/>
+  <tile id="213" terrain="3,0,0,0"/>
+  <tile id="214" terrain="1,0,1,1"/>
+  <tile id="215" terrain="0,1,1,1"/>
+ </tileset>
+ <layer name="sol" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztnU1y00AQRrsK51pU7gEsAqcgLIhPEbIATkHgHhCfJ1JVptRpz1+PRpnYvMVbxCWron76emQtpm9E5AYAAADgTPk18WMF96/gGs6B4OHnxPUKvgtO1tDLA076uPB6+D3xbeJP4bjZCf2r3kNrJr5MvJ34XHk8WSm7WNObgo9bKWcEJ9u60D48GTkXJ6lnz9br2ku7h7Bu3Embj3Nwsld1CMw94mvDuWqykVqr58+1h1Yfep3XjKhta/10fwg1aLnParJh1+pYJt5NfJD0GhJzau8py4j6egnZsPdlqIE3Ix4ft3LsIbg4SH4NseeInccyor5e9nKcDV2DLX1YB++fODwd9yDxjKT6mj2PZUR9vfT0Uftc9RCp1SFxrP7fcnkqned6UH299PSx5rkq5y5kJJWFmIOriY+GEfX1kvIRevhoH6k85bIwu/g3uK6t7BPXe2i4rq18eDhlFzN/5TjXAe91hXN9Ely8JrTjrd3odQIXdW62ckIe2p3YXtjqiDy8nKMacAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI6iZO3PKe2mfCp7ZDnovbdz0d1Dj4Y35+0Keu8HLemL7edq6233VUvuynfpMgJF4587ofQZje4CSlXUuPLNOUns+5vaZxMs2LmZy+0uX9i+mh/V1sdZH6fv/K9bFTvI11Gt6rJ56/Umt//iocxF8xJxcRD6zvzW8OcPHc2xPSbmora13z3t8LPSYG2drq5+rYr3KfoaPhdK9XOr9sd51X3FefBzjyUZsVl1tRiw7Wfoh+9UveO7h2Ky6HhkhGwueOQ0eH6WM7IRspLD3cGq90DOvwtyn3PEhIyknuKjzUcrIpfjnU2sn4R0wLuJ4e9altM1CDu988dDPSZiRlpuHyJr9sk5i70t2kv49zzqxzoln7pJey60P1ol+eN8/aRd46I+dg1WbF3rTGD/MJQMAAOjLI+vcc6Y=
+  </data>
+ </layer>
+ <layer name="block" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt3TkOwjAQBdDkBGxXoGU7A6Jiu/9tGIsGUaFoiB14xXMZWRrbM6l+33VdDwAA8GIWyzwswjKs+vp7mpJT8vc2sWzDLuzDQT2qOsdyCddwC3f1AEamT7clq0+ra46sPm3+enqfa7Pn3LHrCgD/rFYfBwAAGMI/DHyHuwUAAAAAAAAAAAAAAAAAAADwW44N7AEAYMqy5ilzGXzOfWEqhp5VZ7yOkjlW8saGZo2pW66SOVbyxmSNAS3y5rdtrXYAAABA4x7FwDTV
+  </data>
+ </layer>
+ <layer name="deco" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt3TsOwjAMANB0oSdB3P9oUNhJJyQkJBoccMob3ljJkj9xJ0+llAkAAH7sXF2qpbpWtwQxjeSUIAYA9ss7vU/ySkbPe609FwDG5R0HAABG4h8G+tBbAAAAAAAAAAAAAAAAAAAAwKfmBDHwcEwQAwCwTdQ+ZS+LEbVP2cty0y+56JfXWmtVjffRWqvvfidvsdYbcOv9t9bbb2YT0JOZn8uWmS9333cIyh0AAAAA/+EODtw6eA==
+  </data>
+ </layer>
+ <objectgroup name="data" width="100" height="100">
+  <object name="pnj1" type="pnj" x="5184" y="640" width="64" height="64">
+   <properties>
+    <property name="id" value="5"/>
+   </properties>
+  </object>
+  <object name="pnj2" type="pnj" x="4544" y="1024" width="64" height="64">
+   <properties>
+    <property name="id" value="7"/>
+   </properties>
+  </object>
+  <object name="pnj3" type="pnj" x="5568" y="1088" width="64" height="64">
+   <properties>
+    <property name="id" value="6"/>
+   </properties>
+  </object>
+  <object name="porte" type="obj" x="4480" y="896" width="64" height="64">
+   <properties>
+    <property name="id" value="5"/>
+   </properties>
+  </object>
+  <object x="6400" y="448" height="64"/>
+  <object name="porte" type="obj" x="5632" y="960" width="64" height="64">
+   <properties>
+    <property name="id" value="6"/>
+   </properties>
+  </object>
+  <object name="porte" type="obj" x="5120" y="576" width="64" height="64">
+   <properties>
+    <property name="id" value="7"/>
+   </properties>
+  </object>
+  <object name="porte" type="obj" x="1792" y="5440" width="64" height="64">
+   <properties>
+    <property name="id" value="10"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
