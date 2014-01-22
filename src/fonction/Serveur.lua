@@ -5,7 +5,7 @@ function serveur_new(host,port,sync_dt)
 	local a = {}
 	setmetatable(a, serveur)
 
-	a.host = enet.host_create"localhost:12345"
+	a.host = enet.host_create("localhost:12345")
 	
 	a.sync_dt = sync_dt -- frequence de sync
 	a.compteur = 0 -- initialisation du compteur
@@ -23,7 +23,7 @@ end
 
 function serveur:update()
 	self.sync = socket.gettime() -- temp du debut de la frame
-	
+	print(self.host)
 	local event = self.host:service(1)
 	
 	if event and event.type == "receive" then
