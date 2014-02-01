@@ -33,6 +33,8 @@ function serveur:update()
     if event then
       if event.type=="receive" then
         self:receive(event.data,event.peer)
+      elseif event.type=="connect" then
+        print("new client",event.peer)
       elseif event.type=="disconnect" then
         self:disconnect(event.peer)
       else
