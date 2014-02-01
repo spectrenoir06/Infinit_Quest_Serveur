@@ -21,7 +21,7 @@ function serveur_new(ip,port,sync_dt)
     a.peer[1]={}        -- creation salon 1  
     a.peer_perso[1]={}  -- creation salon 1
 
-    a.id = 1
+    a.id = 1 -- init id
     return a
 end
 
