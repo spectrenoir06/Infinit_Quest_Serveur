@@ -33,8 +33,10 @@ function serveur:update()
     if event then
       if event.type=="receive" then
         self:receive(event.data,event.peer)
+      elseif event.type=="disconnect" then
+        self:disconnect(event.peer)
       else
-        print(event.type,event.peer,event.data)
+        print("cmd inconnu",event.type,event.peer)
       end
     end
 
@@ -70,8 +72,18 @@ function serveur:add_client(data,peer)
     self.id = self.id +1
 end
 
-function serveur:rem_client(id)
---table.remove(self.list,id)
+function serveur:disconnect(peer)
+  for k,v in ipairs(self.peer[1]) do
+    print(k,v,peer)
+    if v==peer then 
+      table.remove(self.peer_perso[1],k)
+      table.remove(self.peer[1],k)
+      self:broadcast_map("player_disconnect",{nb = k},1)
+      print("delete player",k)
+      return k 
+    end
+  end
+  return false
 end
 
 function serveur:send(cmd,data,peer)
