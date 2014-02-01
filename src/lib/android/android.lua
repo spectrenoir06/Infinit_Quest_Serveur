@@ -15,31 +15,31 @@
 json = require "/android/json"
 socket = require "socket"
 local P = {}
- 
+
 if _REQUIREDNAME == nil then
-  android = P
+    android = P
 else
-  _G[_REQUIREDNAME] = P
+    _G[_REQUIREDNAME] = P
 end
- 
+
 local id = 0
- 
+
 function rpc(client, method, ...)
-  assert(method, 'method param is nil')
-  local rpc = {
-    ['id'] = id,
-    ['method'] = method,
-    params = arg
-  }
-  local request = json.encode(rpc)
-  client:send(request .. '\n')
-  id = id + 1
-  local response = client:receive('*l')
-  local result = json.decode(response)
-  if result.error ~= nil then
-    print(result.error)
-  end
-  return result
+    assert(method, 'method param is nil')
+    local rpc = {
+        ['id'] = id,
+        ['method'] = method,
+        params = arg
+        }
+    local request = json.encode(rpc)
+    client:send(request .. '\n')
+    id = id + 1
+    local response = client:receive('*l')
+    local result = json.decode(response)
+    if result.error ~= nil then
+        print(result.error)
+    end
+    return result
 end
 
 if not G_port then
@@ -52,56 +52,56 @@ end
 
 local client = socket.connect(tostring(G_host), tonumber(G_port))
 local meta = {
-  __index = function(t, key)
-    return function(...)
-      return rpc(client, key, unpack(arg))
+    __index = function(t, key)
+        return function(...)
+            return rpc(client, key, unpack(arg))
+        end
     end
-  end
-}
- 
+    }
+
 setmetatable(P, meta)
- 
+
 local handshake = os.getenv('AP_HANDSHAKE')
 P._authenticate(handshake)
- 
+
 -- Workaround for no sleep function in Lua.
 function P.sleep(seconds)
-  return os.execute('sleep ' .. seconds)
+    return os.execute('sleep ' .. seconds)
 end
- 
+
 function P.printDict(d)
-  for k, v in pairs(d) do print(k, v) end
+    for k, v in pairs(d) do print(k, v) end
 end
- 
+
 function P.whoami()
-  local f = assert(io.popen('id', 'r'))
-  local s = assert(f:read('*a'))
-  return string.match(s, 'uid=%d+%((.-)%)')
+    local f = assert(io.popen('id', 'r'))
+    local s = assert(f:read('*a'))
+    return string.match(s, 'uid=%d+%((.-)%)')
 end
- 
+
 function P.ps()
-  local f = assert(io.popen('ps', 'r'))
-  local user = P.whoami()
-  local procs = {}
-  for line in f:lines() do
-    if string.match(line, '^(.-)%s', 1) == user then
-      local pid = string.match(line, '^.-%s+(%d+)', 1)
-      local cmd = string.match(line, '%s+([^%s]+)$', 1)
-      procs[pid] = cmd
+    local f = assert(io.popen('ps', 'r'))
+    local user = P.whoami()
+    local procs = {}
+    for line in f:lines() do
+        if string.match(line, '^(.-)%s', 1) == user then
+            local pid = string.match(line, '^.-%s+(%d+)', 1)
+            local cmd = string.match(line, '%s+([^%s]+)$', 1)
+            procs[pid] = cmd
+        end
     end
-  end
-  return procs
+    return procs
 end
- 
+
 function P.kill(pid)
-  os.execute('kill ' .. pid)
+    os.execute('kill ' .. pid)
 end
- 
+
 function P.killallmine()
-  local procs = P.ps()
-  local killcmd = 'kill '
-  for pid, cmd in pairs(procs) do killcmd = killcmd .. pid end
-  os.execute(killcmd)
+    local procs = P.ps()
+    local killcmd = 'kill '
+    for pid, cmd in pairs(procs) do killcmd = killcmd .. pid end
+    os.execute(killcmd)
 end
- 
+
 return P

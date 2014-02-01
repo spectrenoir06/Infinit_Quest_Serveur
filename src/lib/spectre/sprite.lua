@@ -7,26 +7,26 @@ function sprite_new(fichier,LX,LY)
     a.frame={}
     a.imgX=a.img:getWidth()
     a.imgY=a.img:getHeight()
-    
+
     for y=0,(a.imgY/LY)-1 do
-            for x=0,(a.imgX/LX)-1 do
-                a.frame[x+(y*(a.imgX/LX))] = love.graphics.newQuad(x*LX,y*LY,LX,LY ,a.imgX, a.imgY)
-            end
+        for x=0,(a.imgX/LX)-1 do
+            a.frame[x+(y*(a.imgX/LX))] = love.graphics.newQuad(x*LX,y*LY,LX,LY ,a.imgX, a.imgY)
+        end
     end
     a.LX=LX
     a.LY=LY
     a.anim={}
     a.delay=0.25
-    
+
     a.animation=1
     a.speed = 1
-	a.timer = 0
-	a.position = 1
+    a.timer = 0
+    a.position = 1
     a.playing = true
     a.mode=1
-    
+
     return setmetatable(a, sprite)
-    
+
 end
 
 function sprite:draw(x,y)
@@ -60,42 +60,42 @@ function sprite:update(dt)
 end
 
 function sprite:setAnim(nb,frame)
-	self.animation = nb
+    self.animation = nb
     --self.timer = 0
-     if frame then
-         self.position = frame
-    -- else
+    if frame then
+        self.position = frame
+        -- else
         -- self.position = 1
-     end
-    
+    end
+
 end
 
 function sprite:play()
-	self.playing = true
+    self.playing = true
 end
 
 function sprite:stop()
-	self.playing = false
+    self.playing = false
     self:set(1)
 end
 
 function sprite:reset()
-	self:set(1)
+    self:set(1)
 end
 
 function sprite:set(frame)
-	self.position = frame
-	self.timer = 0
+    self.position = frame
+    self.timer = 0
 end
 
 function sprite:getCurrentFrame()
-	return self.position
+    return self.position
 end
 
 function sprite:setMode(mode)
-	if mode == "loop" then
-		self.mode = 1
-	elseif mode == "once" then
-		self.mode = 2
-	end
+    if mode == "loop" then
+        self.mode = 1
+    elseif mode == "once" then
+        self.mode = 2
+    end
 end

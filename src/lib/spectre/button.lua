@@ -12,7 +12,7 @@ function button_new(x,y,image)
     a["x2"]=x+a.image:getWidth()
     a["y2"]=y+a.image:getHeight()
     return setmetatable(a, button)
-    
+
 end
 
 local keypad = {}
@@ -30,7 +30,7 @@ function keypad_new(x,y,image)
     a["x2"]=x+a.image:getWidth()
     a["y2"]=y+a.image:getHeight()
     return setmetatable(a, keypad)
-    
+
 end
 
 local inv = {}
@@ -47,7 +47,7 @@ function inv_new(x,y,image)
     a["x2"]=x+a.image:getWidth()
     a["y2"]=y+a.image:getHeight()
     return setmetatable(a, inv)
-    
+
 end
 
 function keypad:draw()
@@ -82,7 +82,7 @@ function button:isPress(cursorX,cursorY,button)
     else
         return false
     end
-    
+
 end
 
 function keypad:get(x,y,button)
@@ -98,10 +98,10 @@ function keypad:get(x,y,button)
     else
         return 0
     end
-    
+
 end
-    
-    
+
+
 function inv:get(x,y,button)
     for i=0,8 do
         if x > self.x+(i*resolution) and x < self.x+(i*resolution)+resolution and y > self.y and y < self.y+resolution and button then
