@@ -75,17 +75,12 @@ function serveur:add_client(data,peer)
 end
 
 function serveur:disconnect(peer)
-  for k,v in ipairs(self.peer[1]) do
-    print(k,v,peer)
-    if v==peer then 
-      table.remove(self.peer_perso[1],k)
-      table.remove(self.peer[1],k)
-      self:broadcast_map("player_disconnect",{nb = k},1)
-      print("delete player",k)
-      return k 
-    end
-  end
-  return false
+    local nb = self:getNb(peer)
+    table.remove(self.peer_perso[1],nb)
+    table.remove(self.peer[1],nb)
+    self:broadcast_map("player_disconnect",{nb = nb},1)
+    print("delete player",nb,peer)
+    print(#self.peer[1].." joueur(s) restant")
 end
 
 function serveur:send(cmd,data,peer)
@@ -108,15 +103,10 @@ function serveur:receive(data,peer)
         self:add_client(tab.data,peer)
     elseif tab.cmd == "pos_update" then
         --print(json.encode(tab.data))
-        self.peer_perso[tab.data.map][tab.data.nb]:setinfo(tab.data)
+        self.peer_perso[tab.data.map][self:getNb(peer)]:setinfo(tab.data)
     else
       print("cmd inconnu : "..tab.cmd,peer)
     end
-end
-
-
-function serveur:get_nb()
-    return table.getn(self.client)
 end
 
 function serveur:send_update(map)
@@ -161,18 +151,10 @@ function serveur:getperso(map)
     return tab
 end
 
------
-
-function new_client(peer,name,id)
-
-    local a = {}
-    a.player = player_new(name,id)
-    a.peer = peer
-
-    return a
+function serveur:getNb(peer)
+  for k,v in ipairs(self.peer[1]) do if peer==v then return k end end
 end
 
------
 
 player = {}
 player.__index = player
