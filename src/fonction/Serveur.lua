@@ -11,86 +11,48 @@ function serveur_new(ip,port,sync_dt)
 
     a.host = enet.host_create(ip..":"..port)
     if not a.host then print("host == nill server already running ??") error("enet.host_create("..ip..":"..port..")",a.host) end
+    
     a.sync_dt = sync_dt -- frequence de sync
     a.compteur = 0 -- initialisation du compteur
     a.dt=0 -- init de dt
 
+    a.save = {}  --
+    
     a.peer = {}         -- table avec les clients
-    a.peer_perso = {}   -- table avec les perso des clients
+    a.perso = {}   -- table avec les perso des clients
 
-    a.peer[1]={}        -- creation salon 1  
-    a.peer_perso[1]={}  -- creation salon 1
-
-    a.id = 1 -- init id blalala
+    for i=1,10 do
+      a.peer[i]={}        -- creation des salons peer
+      a.perso[i]={}  -- creation des salons perso
+    end
     return a
 end
 
 function serveur:update()
+
     self.sync = socket.gettime() -- temp du debut de la frame
-    --print("self.host",self.host)
     local event = self.host:service()
 
     if event then
-      if event.type=="receive" then
+      if event.type=="receive" then -- recepetion packet
         self:receive(event.data,event.peer)
-      elseif event.type=="connect" then
+      elseif event.type=="connect" then -- nouvelle connection
         print("new client",event.peer)
-      elseif event.type=="disconnect" then
+      elseif event.type=="disconnect" then -- connection terminer
         self:disconnect(event.peer)
       else
-        print("cmd inconnu",event.type,event.peer)
+        print("event inconnu",event.type,event.peer)
       end
     end
 
     if self.compteur > self.sync_dt then
-        --print("self:send_update()")
-        self:send_update(1)
+        self:send_update()
         self.compteur = 0
     end
 
     self.dt = socket.gettime() - self.sync -- temp de la frame
     self.compteur = self.compteur + self.dt -- addition du temp de la frame
 
-    if self.dt > self.sync_dt then
-    --print(string.format("(dt = %f) > (sync_dt = %f) ",self.dt,self.sync_dt))
-    end
-end
-
-function serveur:add_client(data,peer)
-
-    local newplayer = player_new(data.name,self.id) -- creation du nouveau joueur coter serveur
-    table.insert(self.peer_perso[1],newplayer)  -- ajout du nouveau perso du nouveau joueur a la liste
-    
-    local tab = {id = self.id,
-                 players = self.peer_perso[1], }
-    
-    self:send("welcome",tab,peer)
-    self:broadcast_map("new_player",newplayer:getinfo(),1) -- envoi a tout le monde les info sur le nouveau joueur
-    
-    
-    table.insert(self.peer[1],peer)             --  ajout du nouveau peer du nouveau joueur a la liste
-
-    print("add player",data.name,peer,"id="..self.id)
-    self.id = self.id +1
-end
-
-function serveur:disconnect(peer)
-    local nb = self:getNb(peer)
-    table.remove(self.peer_perso[1],nb)
-    table.remove(self.peer[1],nb)
-    self:broadcast_map("player_disconnect",{nb = nb},1)
-    print("delete player",nb,peer)
-    print(#self.peer[1].." joueur(s) restant")
-end
-
-function serveur:send(cmd,data,peer)
-    peer:send(json.encode({cmd = cmd , data = data}))
-end
-
-function serveur:broadcast_map(cmd,data,map)
-    for k,v in ipairs(self.peer[map]) do
-        self:send(cmd,data,v)
-    end
 end
 
 function serveur:receive(data,peer)
@@ -99,84 +61,138 @@ function serveur:receive(data,peer)
     
     local tab = json.decode(data)
     
-    if tab.cmd == "connect" then
-        self:add_client(tab.data,peer)
+    if tab.cmd == "login" then
+        self:login(tab.data,peer)
     elseif tab.cmd == "pos_update" then
-        --print(json.encode(tab.data))
-        self.peer_perso[tab.data.map][self:getNb(peer)]:setinfo(tab.data)
+        self:pos_update(tab.data,peer)
+    elseif tab.cmd == "change_map" then
+        self:change_map(tab.data,peer)
     else
       print("cmd inconnu : "..tab.cmd,peer)
     end
 end
 
-function serveur:send_update(map)
-    if map then
-        self:broadcast_map("update_players_pos",self.peer_perso[map],map)
-    else
-    -- for k,zone in ipairs(self.peer) do
-    -- for nb,client in ipairs(zone) do
-    -- self:broadcast("update",self.perso[zone])
-    -- end
-    -- end
+function serveur:login(data,peer)
+    print("add player",data.name,peer)
+    local newplayer = player_new(data) -- creation du nouveau joueur coter serveur
+    self:join_map(1,newplayer,peer)
+end
+
+function serveur:exit_map(map,nb)
+    print("player "..self.perso[map][nb].name.." exit map "..map)
+    table.remove(self.perso[map],nb)
+    table.remove(self.peer[map],nb)
+    self:broadcast_all_map("player_exit_map",{nb = nb},map)
+
+    --print(#self.peer[map].." joueur(s) restant")
+end
+
+function serveur:join_map(map,player,peer)
+    --print(json.encode(player))
+    print("player "..player.name.." join map "..map)
+    
+    table.insert(self.perso[map],player)  -- ajout du nouveau perso du nouveau joueur a la liste
+    
+    local tab = { players = self.perso[map], }
+    --print(peer)
+    self:send("join_map",tab,peer)
+    self:broadcast_all_map("player_join_map",player:getinfo(),map) -- envoi a tout le monde les info sur le nouveau joueur
+    
+    table.insert(self.peer[map],peer)             --  ajout du nouveau peer du nouveau joueur a la liste
+end
+
+function serveur:change_map(data,peer)
+
+  local old_map,old_nb = self:getMapNb(peer) -- recupertation ancienne map et nb
+  --print(json.encode(data))
+  self:pos_update(data,peer)
+  
+  --local map,nb = self:getMapNb(peer) -- recuperation nouvelle map et nb
+  
+  print(data.name.." change map from "..old_map.." to "..data.map)
+  
+  table.insert(self.perso[data.map],self.perso[old_map][old_nb]) -- copie du perso dans nouvelle map
+  
+  --print(json.encode(self.perso[data.map]))
+  self:send("join_map",{players=self.perso[data.map]},peer) -- envoit les players de la map d'arriver au client
+  self:broadcast_all_map("player_join_map",self.perso[data.map][#self.perso[data.map]]:getinfo(),data.map) -- previent tout les client de la nouvelle map de l'arriver du nouveau
+  
+  table.insert(self.peer[data.map],peer) -- rajout du peer du nouveau dans la map d'arriver
+  table.remove(self.perso[old_map],old_nb) -- supression du perso de l'anciene map
+  table.remove(self.peer[old_map],old_nb)  -- supression du peer de l'ancienne map
+  self:broadcast_all_map("player_exit_map",{nb = old_nb},old_map) -- informe les clients du depart de leur pote  
+  
+  for i=1,3 do
+    print("players map "..i.." = "..#self.perso[i])
+  end
+end
+
+function serveur:disconnect(peer)
+  local map,nb = self:getMapNb(peer)
+  print(peer,"disconnect map "..map.." joueur number "..nb)
+  self:exit_map(map,nb)
+end
+
+function serveur:send(cmd,data,peer)
+    peer:send(json.encode({cmd = cmd , data = data}))
+end
+
+function serveur:broadcast_all_map(cmd,data,map)
+    for k,v in ipairs(self.peer[map]) do
+        self:send(cmd,data,v)
     end
 end
 
--- function serveur:getlist()
--- local tab = {}
--- for k,zone in ipairs(self.client) do
--- for nb,client in ipairs(zone) do
--- print(json.encode(client))
--- table.insert(tab,{ 	name = self.perso[][].name,
--- ip = client.ip,
--- port = client.port,
--- map = k ,
--- id = client.perso.id,
--- posX=client.perso.posX,
--- posY=client.perso.posY
--- } )
--- end
--- end
--- return tab
--- end
-
-function serveur:getperso(map)
-    local tab = {}
-    if map then
-        for nb,client in ipairs(self.player_map[map]) do
-            table.insert(tab,client.perso:getinfo())
-        end
-    else
-        error("no map")
-    end
-    return tab
+function serveur:send_update()
+  for k,v in ipairs(self.perso) do
+    self:broadcast_all_map("update_players_pos",v,k)
+  end
 end
 
-function serveur:getNb(peer)
-  for k,v in ipairs(self.peer[1]) do if peer==v then return k end end
+function serveur:getNb(peer,map)
+  for k,v in ipairs(self.peer[map]) do
+    if peer==v then
+      return k
+    end 
+  end
+  return false
 end
 
+function serveur:getMapNb(peer)
+  for k,v in ipairs(self.peer) do
+    local n = self:getNb(peer,k)
+    if n then
+      return k,n -- k==map , n==index
+    end 
+  end
+  return false
+end
+
+function serveur:pos_update(data,peer)
+  local map , nb = self:getMapNb(peer)
+  self.perso[map][nb]:setinfo(data)  
+end
+------------------------------------------------------------------------------------
 
 player = {}
 player.__index = player
 
-function player_new(name,id)
+function player_new(data)
     local a = {}
     setmetatable(a, player)
-
-    a.id = id
-    a.name=name
-    a.skin=math.random(0, 7)
-    a.posX=10*64
-    a.posY=10*64
-    a.dir = 1
-    a.map=1
-
+    
+      a.name=data.name or "no name"
+      a.skin=math.random(0, 7)
+      a.posX=data.posX or 640
+      a.posY=data.posY or 640
+      a.dir = data.dir or 1
+      a.map=data.map or 1
+    
     return a
 end
 
 function player:getinfo()
     return {
-        id = self.id,
         name = self.name,
         skin = self.skin,
         map = self.map,
@@ -190,4 +206,5 @@ function player:setinfo(data)
     self.posX = data.posX
     self.posY = data.posY
     self.dir = data.dir
+    self.map = data.map
 end
