@@ -1,84 +1,87 @@
 
-socket = require "socket"
-enet = require "enet"
+local socket = require "socket"
+--enet = require "enet"
 
-serveur = {}
-serveur.__index = serveur
+local Server = {}
+Server.__index = Server
 
-function serveur_new(ip,port,sync_dt)
-    local a = {}
-    setmetatable(a, serveur)
+function Server.new(ip,port,sync_dt)
+	
+	local a = {}
+	setmetatable(a, Server)
+	
+	a.serverUdp = assert(socket.udp())
+	a.serverUdp:settimeout(0)
+	a.serverUdp:setsockname('*', 12345)
+	print(a.serverUdp:getsockname())
 
-    a.host = enet.host_create(ip..":"..port)
-    if not a.host then print("host == nill server already running ??") error("enet.host_create("..ip..":"..port..")",a.host) end
-    
-    a.sync_dt = sync_dt -- frequence de sync
-    a.compteur = 0 -- initialisation du compteur
-    a.dt=0 -- init de dt
+	--if not a.host then print("host == nill server already running ??") error("enet.host_create("..ip..":"..port..")",a.host) end
 
-    a.save = {}  --
-    
-    a.peer = {}         -- table avec les clients
-    a.perso = {}   -- table avec les perso des clients
 
-    for i=1,10 do
-      a.peer[i]={}        -- creation des salons peer
-      a.perso[i]={}  -- creation des salons perso
-    end
-    return a
-end
+	a.save 	= {}  		--
+	a.peer 	= {}       	-- table avec les clients
+	a.perso	= {}   		-- table avec les perso des clients
 
-function serveur:update()
-
-    self.sync = socket.gettime() -- temp du debut de la frame
-    local event = self.host:service()
-
-    if event then
-      if event.type=="receive" then -- recepetion packet
-        self:receive(event.data,event.peer)
-      elseif event.type=="connect" then -- nouvelle connection
-        print("new client",event.peer)
-      elseif event.type=="disconnect" then -- connection terminer
-        self:disconnect(event.peer)
-      else
-        print("event inconnu",event.type,event.peer)
-      end
-    end
-
-    if self.compteur > self.sync_dt then
-        self:send_update()
-        self.compteur = 0
-    end
-
-    self.dt = socket.gettime() - self.sync -- temp de la frame
-    self.compteur = self.compteur + self.dt -- addition du temp de la frame
+	for i=1,10 do
+		a.peer[i]	= {}   	-- creation des salons peer
+		a.perso[i]	= {}  	-- creation des salons perso
+	end
+	return a
 
 end
 
-function serveur:receive(data,peer)
+function Server:update()
+
+	self.sync = socket.gettime() -- temp du debut de la frame
+	local data, msg_or_ip, port_or_nil = self.serverUdp:receivefrom()
+
+	if data then
+		print(data, msg_or_ip, port_or_nil)
+		self:receive(data,msg_or_ip..':'..port_or_nil)
+	end
+	
+
+	-- if self.compteur > self.sync_dt then
+		-- self:send_update()
+		-- self.compteur = 0
+	-- end
+
+	-- self.dt = socket.gettime() - self.sync 	-- temp de la frame
+	-- self.compteur = self.compteur + self.dt -- addition du temp de la frame
+
+end
+
+function Server:receive(data,peer)
     --print(data,peer)
     --print("receive : port="..port.." ; cmd="..json.decode(data).cmd)
     
-    local tab = json.decode(data)
+    --local tab = json.decode(data)
     
-    if tab.cmd == "login" then
-        self:login(tab.data,peer)
-    elseif tab.cmd == "pos_update" then
-        self:pos_update(tab.data,peer)
-    elseif tab.cmd == "change_map" then
-        self:change_map(tab.data,peer)
+	if pcall(function() local tab = json.decode(data) end) then
+		--print("json conforme")
+		if tab.cmd == "login" then
+			self:login(tab.data,peer)
+		elseif tab.cmd == "pos_update" then
+			self:pos_update(tab.data,peer)
+		elseif tab.cmd == "change_map" then
+			self:change_map(tab.data,peer)
+		else
+			print("cmd inconnu : "..tab.cmd,peer)
+		end
     else
-      print("cmd inconnu : "..tab.cmd,peer)
-    end
+      print("Error pas de json ", data)
+	end
+	
+
 end
 
-function serveur:login(data,peer)
+function Server:login(data,peer)
     print("add player",data.name,peer)
-    local newplayer = player_new(data) -- creation du nouveau joueur coter serveur
+    local newplayer = player_new(data) -- creation du nouveau joueur coter Server
     self:join_map(1,newplayer,peer)
 end
 
-function serveur:exit_map(map,nb)
+function Server:exit_map(map,nb)
     print("player "..self.perso[map][nb].name.." exit map "..map)
     table.remove(self.perso[map],nb)
     table.remove(self.peer[map],nb)
@@ -87,7 +90,7 @@ function serveur:exit_map(map,nb)
     --print(#self.peer[map].." joueur(s) restant")
 end
 
-function serveur:join_map(map,player,peer)
+function Server:join_map(map,player,peer)
     --print(json.encode(player))
     print("player "..player.name.." join map "..map)
     
@@ -101,7 +104,7 @@ function serveur:join_map(map,player,peer)
     table.insert(self.peer[map],peer)             --  ajout du nouveau peer du nouveau joueur a la liste
 end
 
-function serveur:change_map(data,peer)
+function Server:change_map(data,peer)
 
   local old_map,old_nb = self:getMapNb(peer) -- recupertation ancienne map et nb
   --print(json.encode(data))
@@ -127,29 +130,29 @@ function serveur:change_map(data,peer)
   end
 end
 
-function serveur:disconnect(peer)
+function Server:disconnect(peer)
   local map,nb = self:getMapNb(peer)
   print(peer,"disconnect map "..map.." joueur number "..nb)
   self:exit_map(map,nb)
 end
 
-function serveur:send(cmd,data,peer)
+function Server:send(cmd,data,peer)
     peer:send(json.encode({cmd = cmd , data = data}))
 end
 
-function serveur:broadcast_all_map(cmd,data,map)
+function Server:broadcast_all_map(cmd,data,map)
     for k,v in ipairs(self.peer[map]) do
         self:send(cmd,data,v)
     end
 end
 
-function serveur:send_update()
+function Server:send_update()
   for k,v in ipairs(self.perso) do
     self:broadcast_all_map("update_players_pos",v,k)
   end
 end
 
-function serveur:getNb(peer,map)
+function Server:getNb(peer,map)
   for k,v in ipairs(self.peer[map]) do
     if peer==v then
       return k
@@ -158,7 +161,7 @@ function serveur:getNb(peer,map)
   return false
 end
 
-function serveur:getMapNb(peer)
+function Server:getMapNb(peer)
   for k,v in ipairs(self.peer) do
     local n = self:getNb(peer,k)
     if n then
@@ -168,7 +171,7 @@ function serveur:getMapNb(peer)
   return false
 end
 
-function serveur:pos_update(data,peer)
+function Server:pos_update(data,peer)
   local map , nb = self:getMapNb(peer)
   self.perso[map][nb]:setinfo(data)  
 end
@@ -208,3 +211,5 @@ function player:setinfo(data)
     self.dir = data.dir
     self.map = data.map
 end
+
+return Server
