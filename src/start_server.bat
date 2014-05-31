@@ -1,2 +1,2 @@
-lua start.lua 0.05
+lua start.lua 1
 pause
