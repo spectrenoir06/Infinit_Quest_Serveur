@@ -16,7 +16,7 @@ else
   sync = 1
 end
 
-sync = 5
+sync = 0.05
 
 local udpSocket = assert(socket.udp())
 	  udpSocket:settimeout(0)
@@ -76,6 +76,7 @@ function handler(skt)
 				print(status.." "..tcpIp..":"..tcpPort)
 				cl=cl-1
 				local ip, port = skt.socket:getpeername()
+				server:disconnect(me)
 				Clients["tcp:"..tcpIp..':'..tcpPort] = nil
 				break
 			end
@@ -100,6 +101,7 @@ while 1 do
 				print("tcp : "..v.ip..":"..v.tcpPort..", udp : "..v.ip..":"..v.udpPort) end
 			end
 		print()
+		server:send_update()
 		i=i+1
 		tick = 0
 	end
