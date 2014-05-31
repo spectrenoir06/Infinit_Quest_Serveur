@@ -3,8 +3,8 @@
 require "/lib/json/json"
 require "/class/data"
 Server = require "/class/Serveur"
-require "copas"
-require "json"
+require "lib.copas"
+require "lib.json.json"
 
 local ServerIp = "*"
 local ServerTcpPort = 100
