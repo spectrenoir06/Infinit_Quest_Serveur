@@ -40,49 +40,40 @@ function handler(skt)
 	
 	local tcpIp, tcpPort 	= skt.socket:getpeername() 				-- recuperation ip et port socket tcp
 	local udpClient 		= skt:receive()							-- recuperation ip et port socket udp
-	local udpIp, udpPort 	= string.match(udpClient, '(.*):(%d*)')
-
+	local _, udpPort 	= string.match(udpClient, '(.*):(%d*)')
+	local udpIp=tcpIp
+	
 	Clients["tcp:"..tcpIp..":"..tcpPort] = {ip = tcpIp, udpPort = udpPort, tcpPort = tcpPort, skt = skt}		-- 
 	Clients["udp:"..udpIp..":"..udpPort] = Clients["tcp:"..tcpIp..":"..tcpPort]						-- Clients[udp:ip:udpPort] pointe vers Clients[udp:ip:tcpPort]
 	
 	local me = Clients["tcp:"..tcpIp..":"..tcpPort]
 	
 	print("client nb "..cl..", TPC = "..tcpIp..':'..tcpPort.." ,  UDP = "..udpClient)
-	if (tcpIp~=udpIp) then udpIp=tcpIp end
-	
-	if (tcpIp == udpIp) then										-- verification ip udp et tcp sont egale
 		
-		--skt:send("Bienvenue client nb "..cl..", TCP = "..tcpIp..':'..tcpPort.." ,  UDP = "..udpClient.."\n")
-		
-
-		
-		cl = cl +1
-		while true do
-			nb=nb+1
-			local data, status, partial = skt:receive()
-			--print(data)
+	cl = cl +1
+	while true do
+		nb=nb+1
+		local data, status, partial = skt:receive()
+		--print(data)
 			
-			if data then
-				local tab = json.decode(data)
+		if data then
+			local tab = json.decode(data)
 				
-				if tab.cmd == "login" then
-					server:login(tab.data,me)
-				elseif tab.cmd == "change_map" then
-					--self:change_map(tab.data,skt)
-				else
+			if tab.cmd == "login" then
+				server:login(tab.data,me)
+			elseif tab.cmd == "change_map" then
+				--self:change_map(tab.data,skt)
+			else
 					--print("cmd inconnu : "..tab.cmd)--,peer)
-				end
-			elseif status=="closed" then
-				print(status.." "..tcpIp..":"..tcpPort)
-				cl=cl-1
-				local ip, port = skt.socket:getpeername()
-				server:disconnect(me)
-				Clients["tcp:"..tcpIp..':'..tcpPort] = nil
-				break
 			end
+		elseif status=="closed" then
+			print(status.." "..tcpIp..":"..tcpPort)
+			cl=cl-1
+			local ip, port = skt.socket:getpeername()
+			server:disconnect(me)
+			Clients["tcp:"..tcpIp..':'..tcpPort] = nil
+			break
 		end
-	else
-		print("client error tcpip!=udpip ",tcpIp,udpIp)
 	end
 end
 
