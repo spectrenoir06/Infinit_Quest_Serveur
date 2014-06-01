@@ -16,8 +16,6 @@ else
 	sync = 1
 end
 
-sync = 5
-
 local udpSocket = assert(socket.udp())
 	  udpSocket:settimeout(0)
 	  udpSocket:setsockname(ServerIp, ServerUdpPort)
@@ -86,7 +84,7 @@ while 1 do
 	tick = tick + dt
 	copas.step(0) -- rajoute client
 	if (sync<= tick ) then
-		--os.execute( "cls" )
+		os.execute( "clear" )
 		print("\nboucle : "..i..", client : "..cl..", handler : "..nb)
 		for k,v in pairs(Clients) do
 			if string.sub(k,1,3) == "tcp" then
