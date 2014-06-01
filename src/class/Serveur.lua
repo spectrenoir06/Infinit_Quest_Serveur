@@ -38,6 +38,7 @@ function Server:receive()
     if data then
 		local tab = json.decode(data)
 		if tab.cmd == "pos_update" then
+			print("pos_update",data,ip,port)
 			self:pos_update(tab.data,Clients["udp:"..ip..":"..port])
 		else
 			print("cmd inconnu : "..tab.cmd,client)
