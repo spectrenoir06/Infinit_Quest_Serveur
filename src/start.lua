@@ -84,20 +84,21 @@ while 1 do
 	tick = tick + dt
 	copas.step(0) -- rajoute client
 	if (sync<= tick ) then
-		os.execute( "clear" )
-		print("\nboucle : "..i..", client : "..cl..", handler : "..nb)
-		for k,v in pairs(Clients) do
-			if string.sub(k,1,3) == "tcp" then
-				print("tcp : "..v.ip..":"..v.tcpPort..", udp : "..v.ip..":"..v.udpPort) end
-			end
-		print()
+		-- os.execute( "clear" )
+		-- print("\nboucle : "..i..", client : "..cl..", handler : "..nb)
+		-- for k,v in pairs(Clients) do
+			-- if string.sub(k,1,3) == "tcp" then
+				-- print("tcp : "..v.ip..":"..v.tcpPort..", udp : "..v.ip..":"..v.udpPort) end
+			-- end
+		-- print()
 		server:send_update()
 		i=i+1
 		tick = 0
 	end
 	server:update()
-	dt = socket.gettime() - startTime
 	if cl == 0 then socket.sleep(0.2) end
+	dt = socket.gettime() - startTime
+	
 end
 
 
