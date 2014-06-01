@@ -48,7 +48,7 @@ function handler(skt)
 	local me = Clients["tcp:"..tcpIp..":"..tcpPort]
 	
 	print("client nb "..cl..", TPC = "..tcpIp..':'..tcpPort.." ,  UDP = "..udpClient)
-	
+	if (tcpIp~=udpIp) then udpIp=tcpIp end
 	
 	if (tcpIp == udpIp) then										-- verification ip udp et tcp sont egale
 		
