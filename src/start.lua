@@ -97,6 +97,7 @@ while 1 do
 	end
 	server:update()
 	dt = socket.gettime() - startTime
+	if cl == 0 then socket.sleep(0.2)
 end
 
 
