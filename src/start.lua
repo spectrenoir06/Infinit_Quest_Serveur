@@ -39,8 +39,9 @@ function handler(skt)
 	skt = copas.wrap(skt)
 	
 	local tcpIp, tcpPort 	= skt.socket:getpeername() 				-- recuperation ip et port socket tcp
-	local udpClient 		= skt:receive()							-- recuperation ip et port socket udp
-	local _, udpPort 	= string.match(udpClient, '(.*):(%d*)')
+	local udpClient 		= skt:receive()	
+	local udpIp, udpPort 	= string.match(udpClient, '(.*):(%d*)')	-- recuperation ip et port socket udp
+	
 	local udpIp=tcpIp
 	
 	Clients["tcp:"..tcpIp..":"..tcpPort] = {ip = tcpIp, udpPort = udpPort, tcpPort = tcpPort, skt = skt}		-- 
@@ -64,7 +65,7 @@ function handler(skt)
 			elseif tab.cmd == "change_map" then
 				--self:change_map(tab.data,skt)
 			else
-					--print("cmd inconnu : "..tab.cmd)--,peer)
+				print("cmd inconnu : "..tab.cmd)--,peer)
 			end
 		elseif status=="closed" then
 			print(status.." "..tcpIp..":"..tcpPort)

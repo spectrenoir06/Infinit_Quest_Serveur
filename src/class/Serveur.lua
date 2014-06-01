@@ -34,12 +34,15 @@ end
 function Server:receive()
     
 	local data, ip, port = self.serverUdp:receivefrom() 				-- reception Udp
-	
+	--
     if data then
+		--print(data,ip,port)
 		local tab = json.decode(data)
 		if tab.cmd == "pos_update" then
-			print("pos_update",data,ip,port)
+			--print("pos_update",data,ip,port)
 			self:pos_update(tab.data,Clients["udp:"..ip..":"..port])
+		elseif tab.cmd == "getUdp" then
+			self.serverUdp:sendto(json.encode({cmd = "udpInfo" , data = {ip = ip, port = port}}),ip,port)
 		else
 			print("cmd inconnu : "..tab.cmd,client)
 		end
