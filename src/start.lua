@@ -7,16 +7,16 @@ require "lib.copas"
 require "lib.json.json"
 
 local ServerIp = "*"
-local ServerTcpPort = 100
-local ServerUdpPort = ServerTcpPort+1
+local ServerTcpPort = 4434
+local ServerUdpPort = ServerTcpPort
 
 if arg[1] then
-  sync = tonumber(arg[1])
+	sync = tonumber(arg[1])
 else
-  sync = 1
+	sync = 1
 end
 
-sync = 0.05
+sync = 5
 
 local udpSocket = assert(socket.udp())
 	  udpSocket:settimeout(0)
@@ -26,11 +26,11 @@ server = Server.new(udpSocket)
 
 local tcpSocket = assert(socket.bind(ServerIp, ServerTcpPort))
 
-i	= 0
-nb	= 0
-cl 	= 0
-tick = 0
-dt = 0
+i		= 0
+nb		= 0
+cl		= 0
+tick 	= 0
+dt 		= 0
 
 Clients = {}
 
@@ -38,9 +38,9 @@ function handler(skt)
 	
 	skt = copas.wrap(skt)
 	
-	local tcpIp, tcpPort = skt.socket:getpeername() 				-- recuperation ip et port socket tcp
-	local udpClient = skt:receive()									-- recuperation ip et port socket udp
-	local udpIp, udpPort = string.match(udpClient, '(.*):(%d*)')
+	local tcpIp, tcpPort 	= skt.socket:getpeername() 				-- recuperation ip et port socket tcp
+	local udpClient 		= skt:receive()							-- recuperation ip et port socket udp
+	local udpIp, udpPort 	= string.match(udpClient, '(.*):(%d*)')
 
 	Clients["tcp:"..tcpIp..":"..tcpPort] = {ip = tcpIp, udpPort = udpPort, tcpPort = tcpPort, skt = skt}		-- 
 	Clients["udp:"..udpIp..":"..udpPort] = Clients["tcp:"..tcpIp..":"..tcpPort]						-- Clients[udp:ip:udpPort] pointe vers Clients[udp:ip:tcpPort]
