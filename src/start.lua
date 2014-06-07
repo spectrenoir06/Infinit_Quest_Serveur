@@ -13,7 +13,7 @@ local ServerUdpPort = ServerTcpPort
 if arg[1] then
 	sync = tonumber(arg[1])
 else
-	sync = 1
+	sync = 0.05
 end
 
 local udpSocket = assert(socket.udp())
@@ -78,12 +78,12 @@ end
 
 copas.addserver(tcpSocket, handler)
 
-
 while 1 do
     local startTime = socket.gettime()
 	tick = tick + dt
+	
 	copas.step(0) -- rajoute client
-	if (sync<= tick ) then
+	if (tick>sync ) then
 		-- os.execute( "clear" )
 		-- print("\nboucle : "..i..", client : "..cl..", handler : "..nb)
 		-- for k,v in pairs(Clients) do
@@ -91,14 +91,13 @@ while 1 do
 				-- print("tcp : "..v.ip..":"..v.tcpPort..", udp : "..v.ip..":"..v.udpPort) end
 			-- end
 		-- print()
-		server:send_update()
+		server:send_update(i)
 		i=i+1
 		tick = 0
 	end
 	server:update()
 	if cl == 0 then socket.sleep(0.2) end
 	dt = socket.gettime() - startTime
-	
 end
 
 

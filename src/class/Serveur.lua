@@ -1,6 +1,7 @@
 
 local socket = require "socket"
 local Player = require "class.Player"
+			   require "class.Packet"
 --enet = require "enet"
 
 local Server = {}
@@ -24,10 +25,11 @@ function Server.new(udpSocket)
 
 end
 
-function Server:update()
+function Server:update(dt)
 
 	
 	self:receive()
+	
 
 end
 
@@ -123,6 +125,11 @@ end
 
 function Server:tcpSend(cmd,data,client)
 	print(cmd,"tcp:"..client.ip..":"..client.tcpPort)
+	local packet
+	if cmd == "posUpdate" then
+		packet = ffi.new("posUpdate")
+		print(packet)
+	end
     client.skt:send(json.encode({cmd = cmd , data = data}).."\n")
 end
 
@@ -143,8 +150,9 @@ function Server:udp_broadcast_all_map(cmd,data,map)
     end
 end
 
-function Server:send_update()
+function Server:send_update(i)
   for k,v in ipairs(self.players) do
+	--v.tick = i
     self:udp_broadcast_all_map("update_players_pos",v,k)
   end
 end

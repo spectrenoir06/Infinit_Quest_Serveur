@@ -7,7 +7,7 @@ function Player.new(data)
 	setmetatable(a, Player)
     
       a.name	= data.name or "no name"
-      a.skin	= data.skin or cl%7
+      a.skin	= data.skin or cl-1%8
       a.posX	= data.posX or 640
       a.posY	= data.posY or 640
       a.dir		= data.dir or 1
