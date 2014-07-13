@@ -125,17 +125,13 @@ end
 
 function Server:tcpSend(cmd,data,client)
 	print(cmd,"tcp:"..client.ip..":"..client.tcpPort)
-	local packet
-	if cmd == "posUpdate" then
-		packet = ffi.new("posUpdate")
-		print(packet)
-	end
-    client.skt:send(json.encode({cmd = cmd , data = data}).."\n")
+  client.skt:send(json.encode({cmd = cmd , data = data}).."\n")
 end
 
 function Server:udpSend(cmd,data,client)
+	
 	--print(cmd,"udp:"..client.ip..":"..client.udpPort)
-    self.serverUdp:sendto(json.encode({cmd = cmd , data = data}),client.ip,client.udpPort)
+  self.serverUdp:sendto(json.encode({cmd = cmd , data = data}),client.ip,client.udpPort)
 end
 
 function Server:tcp_broadcast_all_map(cmd,data,map)
